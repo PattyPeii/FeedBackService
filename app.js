@@ -18,6 +18,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/comment", CommentRouter);
 app.use("/like", LikeRouter);
+app.use("/recipe", CommentRouter);
 
 console.log(process.env.MONGODB_URI);
 
@@ -93,9 +94,9 @@ server.addService(feedbackProto.FeedbackService.service, {
   },
 });
 
-server.bind("0.0.0.0:30044", grpc.ServerCredentials.createInsecure());
+// server.bind("0.0.0.0:30044", grpc.ServerCredentials.createInsecure());
 
-// server.bind(`0.0.0.0:${process.env.GRPC_FEEDBACK_PORT}`,grpc.ServerCredentials.createInsecure());
+server.bind(`0.0.0.0:${process.env.GRPC_FEEDBACK_PORT}`,grpc.ServerCredentials.createInsecure());
 
 app.listen(process.env.API_PORT, () => {
   server.start();
