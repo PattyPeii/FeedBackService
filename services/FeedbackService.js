@@ -1,21 +1,10 @@
-const FeedbackModel = require("../models/Comment");
+const Like = require("../models/Like");
+const Comment = require("../models/Comment");
 
-exports.getAllFeedbacks = async () => {
-  return await FeedbackModel.find();
+exports.geCommentbyRecipeId = async (id) => {
+  return await Comment.findById(id);
 };
 
-exports.createFeedback = async (feedback) => {
-  return await FeedbackModel.create(feedback);
-};
-
-exports.getFeedbackById = async (id) => {
-  return await FeedbackModel.findById(id);
-};
-
-exports.updateFeedback = async (id, feedback) => {
-  return await FeedbackModel.findByIdAndUpdate(id, feedback);
-};
-
-exports.deleteFeedback = async (id) => {
-  return await FeedbackModel.findByIdAndDelete(id);
+exports.geLikebyRecipeId = async (id) => {
+  return await Like.findById(id);
 };
