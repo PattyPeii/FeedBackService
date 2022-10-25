@@ -13,9 +13,9 @@ function getgRPCComment(recipe_id) {
 
 exports.getComment = async (req, res) => {
   try {
-    const results = await getgRPCComment(req.params.recipe_id)
+    // const results = await getgRPCComment(req.params.recipe_id)
 
-    // const users = await commentService.getAllComment(req.params.recipe_id);
+    const results = await commentService.getAllComment(req.params.recipe_id);
     res.json({ data: results, status: "success" });
   } catch (err) {
     res.status(500).json({ error: err.message });
