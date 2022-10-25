@@ -1,14 +1,18 @@
 syntax ="proto3";
 
-service UserService {
-    rpc GetFeedBack() returns (Feedback) {}
+service FeedbackService {
+    rpc GetFeedbackLike(RecipeId) returns (FeedbackLikeList) {}
+    rpc GetFeedbackComment(RecipeId) returns (FeedbackCommentList) {}
 }
 
 message Empty{}
 
-message Feedback{
-    repeated RecipeItem FeedbackComment=1;
-    repeated RecipeItem FeedbackVote=2;
+message FeedbackCommentList{
+    repeated FeedbackComment comment=1;
+}
+
+message FeedbackLikeList{
+    repeated FeedbackLike like=2;
 }
 
 message FeedbackComment{
@@ -18,9 +22,13 @@ message FeedbackComment{
     string comment=4;
 }
 
-message FeedbackVote{
+message FeedbackLike{
     string feedback_id =1;
     string user_id=2;
     string recipe_id=3;
     string vote=4;
+}
+
+message RecipeId{
+    string recipe_id=1;
 }
