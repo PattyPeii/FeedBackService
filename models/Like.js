@@ -1,13 +1,13 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const memberSchema = new Schema(
+const likeSchema = new Schema(
   {
-    name: String,
-    address: String,
-    email: String,
-    telephone: String,
-    follow: Array,
+
+    feedback_id : String,
+    user_id: String,
+    recipe_id: String,
+    vote: String,
   },
   {
     timestamps: {
@@ -17,4 +17,4 @@ const memberSchema = new Schema(
   }
 );
 
-module.exports = mongoose.model("Member", memberSchema);
+module.exports = mongoose.model("like", feedbackSchema);

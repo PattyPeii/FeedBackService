@@ -1,4 +1,4 @@
-const FeedbackModel = require("../models/Feedback");
+const FeedbackModel = require("../models/Comment");
 
 exports.getAllFeedbacks = async () => {
   return await FeedbackModel.find();
