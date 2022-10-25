@@ -1,10 +1,22 @@
 const commentService = require("../services/CommentService");
 const CommentModel = require("../models/CommentModel");
+const { client } = require('../grpc-client');
+
+function getgRPCComment(recipe_id) {
+  return new Promise((resolve, reject) => client.GetFeedbackComment(recipe_id, (err, response) => {
+    if (err) {
+      return reject(err)
+    }
+    resolve(response)        
+  }))
+}
 
 exports.getComment = async (req, res) => {
   try {
-    const users = await commentService.getAllComment(req.params.recipe_id);
-    res.json({ data: users, status: "success" });
+    const results = await getgRPCComment(req.params.recipe_id)
+
+    // const users = await commentService.getAllComment(req.params.recipe_id);
+    res.json({ data: results, status: "success" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

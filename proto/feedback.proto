@@ -16,17 +16,14 @@ message FeedbackLikeList{
 }
 
 message FeedbackComment{
-    string feedback_id =1;
     string user_id=2;
     string recipe_id=3;
     string comment=4;
 }
 
 message FeedbackLike{
-    string feedback_id =1;
     string user_id=2;
     string recipe_id=3;
-    string vote=4;
 }
 
 message RecipeId{

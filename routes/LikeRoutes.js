@@ -1,10 +1,10 @@
 const express = require("express");
 const {
   getLike,
-} = require("../controllers/FeedbackController");
+} = require("../controllers/LikeController");
 
 const router = express.Router();
 
-router.route("/:id").get(getLike);
+router.route("/:recipe_id/likes").get(getLike);
 
 module.exports = router;

@@ -7,7 +7,8 @@ var grpc = require("grpc");
 const PROTO_PATH = "./proto/feedback.proto";
 var grpc = require("grpc");
 var protoLoader = require("@grpc/proto-loader");
-const feedbackService = require("./services/FeedbackService");
+const commentService = require("./services/CommentService");
+const likeService = require("./services/LikeService");
 
 const app = express();
 
@@ -53,18 +54,11 @@ var feedbackProto = grpc.loadPackageDefinition(packageDefinition);
 
 server.addService(feedbackProto.FeedbackService.service, {
   GetFeedbackLike: async (call, callback) => {
-    console.log(JSON.stringify(call));
     let LikeList = [];
     try {
-      console.log(call.request.id)
-      LikeList = await feedbackService.geLikebyRecipeId(call.request.id);
+      LikeList = await likeService.getAlllike(call.request.id);
       let temp = {like: LikeList}
       callback(null, temp);
-      // if (LikeList == null) {
-      //   callback(null, []);
-      // } else {
-      //   callback(null, temp);
-      // }
     } catch (err) {
       callback({
         code: grpc.status.NOT_FOUND,
@@ -75,16 +69,9 @@ server.addService(feedbackProto.FeedbackService.service, {
   GetFeedbackComment: async (call, callback) => {
     let CommentList = [];
     try {
-      CommentList = await Comment.geCommentbyRecipeId({
-        recipe_id: call.request.id,
-      });
+      CommentList = await commentService.getAllComment(call.request.id);
       let temp = {comment: CommentList}
       callback(null, temp);
-      // if (CommentList == null) {
-      //   callback(null, []);
-      // } else {
-      //   callback(null, CommentList);
-      // }
     } catch (err) {
       callback({
         code: grpc.status.NOT_FOUND,
