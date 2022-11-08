@@ -14,17 +14,16 @@ exports.postComment = async (comment, recipe_id) => {
             if (error1) {
               throw error1;
             }
-            var exchange = 'direct_logs';
-            var severity = "comment"
+            var queue = 'comment';
             comment["recipe_id"] = recipe_id;
             var msg = JSON.stringify(comment)
             console.log(msg)
         
-            channel.assertExchange(exchange, 'direct', {
+            channel.assertQueue(queue, {
               durable: false
             });
-            channel.publish(exchange, severity, Buffer.from(msg));
-            console.log(" [x] Sent %s: '%s'", severity, msg);
+            channel.sendToQueue(queue, Buffer.from(msg));
+            console.log(" [x] Sent %s: '%s'", queue, msg);
           });
         });
   return;
@@ -44,15 +43,15 @@ exports.updateComment = async (id, comment) => {
             if (error1) {
               throw error1;
             }
-            var exchange = 'direct_logs';
-            var severity = "comment"
+            var queue = 'comment';
+            comment["recipe_id"] = recipe_id;
             var msg = JSON.stringify(comment)
             console.log(msg)
         
-            channel.assertExchange(exchange, 'direct', {
+            channel.assertQueue(queue, {
               durable: false
             });
-            channel.publish(exchange, severity, Buffer.from(msg));
+            channel.sendToQueue(queue, Buffer.from(msg));
             console.log(" [x] Sent %s: '%s'", severity, msg);
           });
         });
