@@ -10,6 +10,10 @@ var protoLoader = require("@grpc/proto-loader");
 const commentService = require("./services/CommentService");
 const likeService = require("./services/LikeService");
 
+const swaggerUi = require('swagger-ui-express')
+
+const swaggerCommentFile = require('./swagger_output_comment.json')
+
 const app = express();
 
 require("dotenv").config();
@@ -20,6 +24,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/comment", CommentRouter);
 app.use("/like", LikeRouter);
 app.use("/recipe", CommentRouter);
+
+// swagger doc
+var options = {}
+
+app.use(
+  "/doc/Comment",
+  swaggerUi.serveFiles(swaggerCommentFile, options),
+  swaggerUi.setup(swaggerCommentFile)
+);
 
 console.log(process.env.MONGODB_URI);
 
