@@ -15,7 +15,8 @@ const swaggerUi = require('swagger-ui-express')
 const swaggerCommentFile = require('./swagger_output_comment.json')
 
 const app = express();
-
+var cors = require("cors");
+app.use(cors());
 require("dotenv").config();
 
 //middleware
